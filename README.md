@@ -20,6 +20,7 @@ Features:
 - Reduce Stock (for distributor): 
 - Add Stock (for distributor): 
 - Detail, for view item detail 
+- Register, for supplier and distributor 
 
 Supplier Login Credential:
 > admin@supplier.com / password
