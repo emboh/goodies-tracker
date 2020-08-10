@@ -61,6 +61,19 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" id="supplier" value="supplier">
+                                <label class="form-check-label" for="supplier">Supplier</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" id="distributor" value="distributor">
+                                <label class="form-check-label" for="distributor">Distributor</label>
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
