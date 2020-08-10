@@ -12,9 +12,11 @@ class SummaryController extends Controller
     public function __invoke()
     {
         $queryA = History::query()
-            ->selectRaw('sum(items.stock) as current_quantity, sum(histories.quantity_in) as quantity_in, sum(histories.quantity_out) as quantity_out, DATE_FORMAT(histories.created_at,\'%Y-%m\') as date')
+            ->selectRaw('items.name as name, items.stock as stock, sum(histories.quantity_in) as quantity_in, sum(histories.quantity_out) as quantity_out, DATE_FORMAT(histories.created_at,\'%Y-%m\') as date')
             ->join('items', 'items.id', '=', 'histories.item_id')
-            ->groupBy('histories.created_at')
+            ->groupBy('name')
+            ->groupBy('stock')
+            ->groupBy('date')
             ->get();
 
         $queryB = User::role(User::ROLE_SUPPLIER)

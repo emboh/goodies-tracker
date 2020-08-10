@@ -13,6 +13,9 @@
                 <thead>
                     <tr>
                         <th><a href="#">
+                            Item
+                        </a></th>
+                        <th><a href="#">
                             Current Quantity
                         </a></th>
                         <th><a href="#">
@@ -29,7 +32,8 @@
                 <tbody>
                     @foreach ($queryA as $row)
                         <tr>
-                            <td>{{ $row->current_quantity }}</td>
+                            <td>{{ $row->name }}</td>
+                            <td>{{ $row->stock }}</td>
                             <td>{{ $row->quantity_in }}</td>
                             <td>{{ $row->quantity_out }}</td>
                             <td>{{ $row->date }}</td>
