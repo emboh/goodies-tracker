@@ -8,6 +8,8 @@
 How to up & running:
 
 - Create the database, copy .env file and setup the configuration
+- Install dependecies and publish assets.
+	> composer install && npm install && npm run dev
 - Run migration, seed dummy data, and serve in localhost.
 	> php artisan migrate:refresh && php artisan db:seed && php artisan serve
 	
