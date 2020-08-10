@@ -99,7 +99,7 @@ class ItemController extends Controller
         }
 
         if ($request->user()->hasRole(User::ROLE_SUPPLIER)) {
-            $item->addStock($request->quantity);
+            $item->addStocks($request->quantity);
         }
 
         return redirect()->route('items.index');
