@@ -33,16 +33,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @auth
                         <a class="btn btn-success" href="{{ route('summary') }}" role="button">
                             Summary
                         </a>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        @auth
                         <a class="btn btn-warning" href="{{ route('items.create') }}" role="button">
                             Add Item
                         </a>
+                        @endauth
 
 
                         <!-- Authentication Links -->
