@@ -3,15 +3,21 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\History;
-use App\Models\Item;
-use App\Models\User;
+use App\Services\ItemService;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
+    protected $itemService;
+
+    /**
+     * @param  \ItemService  $itemService
+     */
+    public function __construct(ItemService $itemService)
+    {
+        $this->itemService = $itemService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +25,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy('created_at', 'desc')->get();
+        $items = $this->itemService->all();
 
         return view('item.index', compact('items'));
     }
@@ -47,11 +53,9 @@ class ItemController extends Controller
             'stock',
         ]);
 
-        $item = Item::create($data);
+        $item = $this->itemService->create($data);
 
         return redirect()->route('items.index');
-
-        // return JsonResource::make($item);
     }
 
     /**
@@ -60,9 +64,9 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show($id)
     {
-        $item->load('histories');
+        $item = $this->itemService->show($id);
 
         return view('item.show', compact('item'));
     }
@@ -73,8 +77,10 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+    public function edit($id)
     {
+        $item = $this->itemService->show($id);
+
         return view('item.edit', compact('item'));
     }
 
@@ -85,26 +91,16 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, $id)
     {
         $data = $request->only([
             'name',
             'stock',
         ]);
 
-        $item->update($data);
-
-        if ($request->user()->hasRole(User::ROLE_DISTRIBUTOR)) {
-            $item->reduceStocks($request->quantity);
-        }
-
-        if ($request->user()->hasRole(User::ROLE_SUPPLIER)) {
-            $item->addStocks($request->quantity);
-        }
+        $item = $this->itemService->update($id, $data, $request->quantity);
 
         return redirect()->route('items.index');
-
-        // return JsonResource::make($item);
     }
 
     /**
@@ -113,8 +109,10 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item $item)
+    public function destroy($id)
     {
-        //
+        $item = $this->itemService->delete($id);
+
+        return redirect()->route('items.index');
     }
 }

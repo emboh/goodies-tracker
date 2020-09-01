@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::namespace('Web')->group(function ()
+Route::group(['namespace' => 'Web', 'middleware' => ['auth']], function ()
 {
     Route::resource('items', 'ItemController');
 
