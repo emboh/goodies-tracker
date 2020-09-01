@@ -35,7 +35,7 @@ class AuthenticationController extends Controller
             ]);
         }
     
-        return $user->createToken($request->ip())->plainTextToken;
+        return $user->createToken($request->header('User-Agent'))->plainTextToken;
     }
 
     /**
@@ -46,8 +46,8 @@ class AuthenticationController extends Controller
      */
     public function logout(Request $request)
     {
-        if (Auth::check()) {
-            $request->user()->currentAccessToken()->delete();
+        if (auth('sanctum')->check()) {
+            $request->user('sanctum')->tokens()->delete();
         }
         
         return response()->json([], Response::HTTP_OK);
