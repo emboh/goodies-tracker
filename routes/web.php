@@ -19,11 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['namespace' => 'Web', 'middleware' => ['auth']], function ()
 {
-    Route::resource('items', 'ItemController');
+    Route::resource('items', ItemController::class);
 
-    Route::get('summary', 'SummaryController')->name('summary');
+    Route::get('summary', SummaryController::class)->name('summary');
 });

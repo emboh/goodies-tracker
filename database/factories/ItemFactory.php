@@ -1,13 +1,30 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Models\Item;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-$factory->define(Item::class, function (Faker $faker) {
-    return [
-        'name' => $faker->lastName . ' ' . $faker->colorName,
-        'stock' => $faker->numberBetween($min = 1, $max = 100),
-    ];
-});
+class ItemFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Item::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->lastName . ' ' . $this->faker->colorName,
+            'stock' => $this->faker->numberBetween($min = 1, $max = 100),
+        ];
+    }
+}

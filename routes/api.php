@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Auth'], function ()
 {
-    Route::post('login', 'AuthenticationController@login');
+    Route::post('login', [AuthenticationController::class, 'login']);
 
-    Route::post('logout', 'AuthenticationController@logout');
+    Route::post('logout', [AuthenticationController::class, 'logout']);
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function ()
 {
-    Route::apiResource('items', 'ItemController');
+    Route::apiResource('items', ItemController::class);
 
-    Route::get('summary', 'SummaryController');
+    Route::get('summary', SummaryController::class);
 });

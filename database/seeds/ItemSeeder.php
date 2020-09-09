@@ -14,6 +14,6 @@ class ItemSeeder extends Seeder
     {
         Item::truncate();
 
-        factory(Item::class, 10)->create();
+        Item::factory()->count(20)->create();
     }
 }
